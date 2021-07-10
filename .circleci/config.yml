@@ -27,23 +27,23 @@ jobs:
 
   polkadotValidatorIntegrationTest:
     environment:
-      ROLE_PATH: ansible/roles/polkadot-validator
+      ROLE_PATH: ansible/roles/polkadot-collator
     <<: *ansibleIntegrationTest
 
   nodeExporterIntegrationTest:
     environment:
       ROLE_PATH: ansible/roles/node-exporter
     <<: *ansibleIntegrationTest
-  
+
   updateBinaryIntegrationTest:
     environment:
       ROLE_PATH: ansible/roles/polkadot-update-binary
-    <<: *ansibleIntegrationTest  
+    <<: *ansibleIntegrationTest
 
   nginxAuthIntegrationTest:
     environment:
       ROLE_PATH: ansible/roles/nginx-auth
-    <<: *ansibleIntegrationTest    
+    <<: *ansibleIntegrationTest
 
   integrationTest:
     docker:
@@ -94,13 +94,13 @@ workflows:
             tags:
               only: /.*/
           requires:
-            - unitTests  
+            - unitTests
       - nginxAuthIntegrationTest:
           filters:
             tags:
               only: /.*/
           requires:
-            - unitTests            
+            - unitTests
       - integrationTest:
           filters:
             tags:

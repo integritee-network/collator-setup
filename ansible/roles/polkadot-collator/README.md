@@ -11,7 +11,7 @@ No  pre-requisites.
 Role Variables
 --------------
 
-Chain to use for the validator, example `kusama` which is an early, unaudited and unrefined release of Polkadot. Kusama will serve as a proving ground, allowing teams and developers to build and deploy a parachain or try out Polkadot’s governance, staking, nomination and validation functionality in a real environment.
+Chain to use for the collator, example `kusama` which is an early, unaudited and unrefined release of Polkadot. Kusama will serve as a proving ground, allowing teams and developers to build and deploy a parachain or try out Polkadot’s governance, staking, nomination and validation functionality in a real environment.
 
 ```
 chain: kusama
@@ -29,10 +29,10 @@ Dependencies
 Example Playbook
 ----------------
 
-    - hosts: validator
+    - hosts: collator
       become: yes
       roles:
-      - polkadot-validator
+      - polkadot-collator
 
 License
 -------

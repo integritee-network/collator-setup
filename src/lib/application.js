@@ -5,8 +5,8 @@ class Application {
   constructor(cfg, platformResult={}) {
     const ansibleCfg = JSON.parse(JSON.stringify(cfg));
 
-    for (let counter = 0; counter < ansibleCfg.validators.nodes.length; counter++) {
-      ansibleCfg.validators.nodes[counter].ipAddresses = platformResult.validatorIpAddresses[counter];
+    for (let counter = 0; counter < ansibleCfg.collators.nodes.length; counter++) {
+      ansibleCfg.collators.nodes[counter].ipAddresses = platformResult.collatorIpAddresses[counter];
     }
 
     if(ansibleCfg.publicNodes) {

@@ -21,7 +21,7 @@
   {% set logging_filter = hostvars[inventory_hostname].loggingFilter|default(None) %}
 {% endif %}
 {% set additionalCommonFlags = hostvars[inventory_hostname].polkadot_additional_common_flags|default(None) %}
-{% set additionalValidatorFlags = hostvars[inventory_hostname].polkadot_additional_validator_flags|default(None) %}
+{% set additionalCollatorFlags = hostvars[inventory_hostname].polkadot_additional_collator_flags|default(None) %}
 {# --- #}
 [Unit]
 Description=Polkadot Node
@@ -36,7 +36,7 @@ ExecStart=/usr/local/bin/polkadot \
   {% if node_name is not none and node_name|length %}
   --name {{ node_name }} \
   {% else %}
-  --name {{ project|default('project') }}-sv-validator-{{ groups['validator'].index(inventory_hostname) }} \
+  --name {{ project|default('project') }}-sv-collator-{{ groups['collator'].index(inventory_hostname) }} \
   {% endif %}
   {% if wasm_execution is not none and wasm_execution|length %}
   --wasm-execution {{ wasm_execution }} \
@@ -67,8 +67,8 @@ ExecStart=/usr/local/bin/polkadot \
   {% if additionalCommonFlags is not none and additionalCommonFlags|length %}
   {{ additionalCommonFlags }} \
   {% endif %}
-  {% if additionalValidatorFlags is not none and additionalValidatorFlags|length %}
-  {{ additionalValidatorFlags }} \
+  {% if additionalCollatorFlags is not none and additionalCollatorFlags|length %}
+  {{ additionalCollatorFlags }} \
   {% endif %}
   {# --- #}
   --validator \

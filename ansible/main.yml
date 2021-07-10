@@ -6,21 +6,21 @@
   - name: Wait for nodes to become reachable
     wait_for_connection:
 
-- name: validator
-  hosts: validator
+- name: collator
+  hosts: collator
   become: yes
   roles:
-  - polkadot-validator
+  - polkadot-collator
 
 - name: nginx-auth
-  hosts: validator
+  hosts: collator
   become: yes
   strategy: free
   roles:
-  - nginx-auth  
+  - nginx-auth
 
 - name: node-exporter
-  hosts: validator
+  hosts: collator
   become: yes
   strategy: free
   roles:

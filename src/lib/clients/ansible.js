@@ -39,17 +39,17 @@ class Ansible {
     const buildDir = path.join(project.path(), 'ansible');
     const target = path.join(buildDir, inventoryFileName);
 
-    const validators = this._genTplNodes(this.config.validators);
-    const validatorTelemetryUrl = this.config.validators.telemetryUrl;
-    const validatorLoggingFilter = this.config.validators.loggingFilter;
-    const polkadotAdditionalValidatorFlags = this.config.validators.additionalFlags;
+    const collators = this._genTplNodes(this.config.collators);
+    const collatorTelemetryUrl = this.config.collators.telemetryUrl;
+    const collatorLoggingFilter = this.config.collators.loggingFilter;
+    const polkadotAdditionalValidatorFlags = this.config.collators.additionalFlags;
 
     let publicNodes = [];
     let publicTelemetryUrl = '';
     let publicLoggingFilter='';
     let polkadotAdditionalPublicFlags = '';
     if (this.config.publicNodes) {
-      publicNodes = this._genTplNodes(this.config.publicNodes, validators.length);
+      publicNodes = this._genTplNodes(this.config.publicNodes, collators.length);
       publicTelemetryUrl = this.config.publicNodes.telemetryUrl;
       publicLoggingFilter = this.config.publicNodes.loggingFilter;
       polkadotAdditionalPublicFlags = this.config.publicNodes.additionalFlags;
@@ -58,18 +58,18 @@ class Ansible {
     const data = {
       project: this.config.project,
 
-      polkadotBinaryUrl: this.config.polkadotBinary.url,
-      polkadotBinaryChecksum: this.config.polkadotBinary.checksum,
+      collatorBinaryUrl: this.config.collatorBinary.url,
+      collatorBinaryChecksum: this.config.collatorBinary.checksum,
       chain: this.config.chain || 'kusama',
       polkadotNetworkId: this.config.polkadotNetworkId || 'ksmcc2',
 
-      validators,
+      collators,
       publicNodes,
 
-      validatorTelemetryUrl,
+      collatorTelemetryUrl,
       publicTelemetryUrl,
 
-      validatorLoggingFilter,
+      collatorLoggingFilter,
       publicLoggingFilter,
 
       buildDir,
@@ -101,9 +101,9 @@ class Ansible {
       data.polkadotRestartEnabled = false;
     }
 
-    if(this.config.validators.dbSnapshot?.url != undefined && this.config.validators.dbSnapshot?.checksum != undefined){
-      data.dbSnapshotUrl = this.config.validators.dbSnapshot.url;
-      data.dbSnapshotChecksum = this.config.validators.dbSnapshot.checksum;
+    if(this.config.collators.dbSnapshot?.url != undefined && this.config.collators.dbSnapshot?.checksum != undefined){
+      data.dbSnapshotUrl = this.config.collators.dbSnapshot.url;
+      data.dbSnapshotChecksum = this.config.collators.dbSnapshot.checksum;
     }
 
     tpl.create(origin, target, data);

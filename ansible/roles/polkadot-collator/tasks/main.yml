@@ -1,5 +1,5 @@
 ---
-# tasks file for polkadot-validator
+# tasks file for polkadot-collator
 - name: firewall setup
   import_tasks: firewall.yml
 

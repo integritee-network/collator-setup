@@ -21,7 +21,7 @@ class Terraform {
   }
 
   async initNodes() {
-    await this._initNodes('validator',this.config.validators.nodes)
+    await this._initNodes('collator',this.config.collators.nodes)
     this.config.publicNodes && await this._initNodes('publicNode',this.config.publicNodes.nodes)
   }
 
@@ -35,11 +35,11 @@ class Terraform {
 
     const sshKeys = ssh.keys();
 
-    let validatorSyncPromises = [];
+    let collatorSyncPromises = [];
     try {
-      validatorSyncPromises = await this._create('validator', sshKeys.validatorPublicKey, this.config.validators.nodes, method);
+      collatorSyncPromises = await this._create('collator', sshKeys.collatorPublicKey, this.config.collators.nodes, method);
     } catch(e) {
-      console.log(`Could not get validator sync promises: ${e.message}`);
+      console.log(`Could not get collator sync promises: ${e.message}`);
     }
 
     let publicNodeSyncPromises = [];
@@ -50,18 +50,18 @@ class Terraform {
         console.log(`Could not get publicNodes sync promises: ${e.message}`);
       }
     }
-    const syncPromises = validatorSyncPromises.concat(publicNodeSyncPromises)
+    const syncPromises = collatorSyncPromises.concat(publicNodeSyncPromises)
 
     return Promise.all(syncPromises);
   }
 
   async clean() {
     this._initializeTerraform();
-    let validatorCleanPromises = [];
+    let collatorCleanPromises = [];
     try {
-      validatorCleanPromises = await this._destroy('validator',this.config.validators.nodes);
+      collatorCleanPromises = await this._destroy('collator',this.config.collators.nodes);
     } catch(e) {
-      console.log(`Could not get validator clean promises: ${e.message}`);
+      console.log(`Could not get collator clean promises: ${e.message}`);
     }
 
     let publicNodesCleanPromises = [];
@@ -72,7 +72,7 @@ class Terraform {
         console.log(`Could not get publicNodes clean promises: ${e.message}`);
       }
     }
-    const cleanPromises = validatorCleanPromises.concat(publicNodesCleanPromises);
+    const cleanPromises = collatorCleanPromises.concat(publicNodesCleanPromises);
 
     return Promise.all(cleanPromises);
   }
@@ -172,8 +172,8 @@ class Terraform {
     fs.ensureDirSync(this.terraformFilesPath);
 
     this._copyTerraformFiles('remote-state', 0, 'remote-state');
-    for (let counter = 0; counter < this.config.validators.nodes.length; counter++) {
-      this._copyTerraformFiles('validator', counter, this.config.validators.nodes[counter].provider);
+    for (let counter = 0; counter < this.config.collators.nodes.length; counter++) {
+      this._copyTerraformFiles('collator', counter, this.config.collators.nodes[counter].provider);
     }
 
     if (this.config.publicNodes){

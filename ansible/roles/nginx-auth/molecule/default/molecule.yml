@@ -8,17 +8,17 @@ lint: |
   yamllint .
   flake8
 platforms:
-  - name: nginx-auth-validator-node
+  - name: nginx-auth-collator-node
     image: ubuntu:bionic
     groups:
-      - validator
+      - collator
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
   inventory:
     host_vars:
-      nginx-auth-validator-node:
+      nginx-auth-collator-node:
         node_exporter_enabled: 'true'
 verifier:
   name: testinfra

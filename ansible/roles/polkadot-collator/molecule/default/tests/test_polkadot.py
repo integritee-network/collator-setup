@@ -17,7 +17,7 @@ def test_polkadot_binary(host):
 
 
 def test_polkadot_service_file(host):
-    if host.ansible.get_variables()['inventory_hostname'] == 'validator':
+    if host.ansible.get_variables()['inventory_hostname'] == 'collator':
         svc = host.file('/etc/systemd/system/polkadot.service')
         assert svc.exists
         assert svc.user == 'root'
@@ -27,7 +27,7 @@ def test_polkadot_service_file(host):
 
 
 def test_polkadot_running_and_enabled(host):
-    if host.ansible.get_variables()['inventory_hostname'] == 'validator':
+    if host.ansible.get_variables()['inventory_hostname'] == 'collator':
         polkadot = host.service("polkadot.service")
         assert polkadot.is_running
         # assert polkadot.is_enabled

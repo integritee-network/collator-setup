@@ -11,16 +11,16 @@ class Platform {
 
   async sync() {
     await this.tf.sync('apply');
-    const validatorIpAddresses = await this._getValidatorIpAddresses();
+    const collatorIpAddresses = await this._getCollatorIpAddresses();
     const publicNodesIpAddresses = await this._getPublicNodesIpAddresses();
-    return { validatorIpAddresses, publicNodesIpAddresses };
+    return { collatorIpAddresses, publicNodesIpAddresses };
   }
 
   async output() {
     await this.tf.initNodes();
-    const validatorIpAddresses = await this._getValidatorIpAddresses();
+    const collatorIpAddresses = await this._getCollatorIpAddresses();
     const publicNodesIpAddresses = await this._getPublicNodesIpAddresses();
-    return { validatorIpAddresses, publicNodesIpAddresses };
+    return { collatorIpAddresses, publicNodesIpAddresses };
   }
 
   async plan() {
@@ -40,8 +40,8 @@ class Platform {
     return output;
   }
 
-  async _getValidatorIpAddresses() {
-    return await this._extractOutput('validator', this.config.validators.nodes);
+  async _getCollatorIpAddresses() {
+    return await this._extractOutput('collator', this.config.collators.nodes);
   }
 
   async _getPublicNodesIpAddresses() {

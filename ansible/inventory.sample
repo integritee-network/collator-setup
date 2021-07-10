@@ -1,14 +1,14 @@
 # Specify the nodes to setup. You can add more or remove entries, as you wish.
 
-# Validator 0
-[validator_0]
+# Collator 0
+[collator_0]
 147.75.76.65
 
 # NOTE: optional variables can just be removed.
-[validator_0:vars]
+[collator_0:vars]
 ansible_user=alice
 # Set an individual node name (optional)
-node_name='Alice Validator'
+node_name='Alice Collator'
 # Setup one or multiple telemetry endpoints (optional)
 telemetry_url='wss://telemetry.polkadot.io/submit/,wss://telemetry-backend.w3f.community/submit'
 # Only log specify levels, e.g. warnings (optional)
@@ -20,19 +20,19 @@ enable_reverse_proxy = false
 # Any additional flags passed on to the 'polkadot' binary (optional)
 additional_flags = '--no-prometheus --no-mdns'
 
-# Validator 1
-[validator_1]
+# Collator 1
+[collator_1]
 162.12.35.55
 
-[validator_1:vars]
+[collator_1:vars]
 ansible_user=bob
 telemetry_url=wss://telemetry.polkadot.io/submit/
 logging_filter='sync=warn,afg=warn,babe=warn'
 
 # ## Group all nodes
-[validator:children]
-validator_0
-validator_1
+[collator:children]
+collator_0
+collator_1
 
 # Common variables
 [all:vars]
@@ -42,7 +42,7 @@ project=alice-in-wonderland
 
 # Can be left as is.
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ConnectTimeout=15'
-build_dir=$HOME/.config/polkadot-secure-validator/build/w3f/ansible
+build_dir=$HOME/.config/polkadot-secure-collator/build/w3f/ansible
 
 # Specify which `polkadot` binary to install. Checksum is verified during execution.
 polkadot_binary_url='https://github.com/paritytech/polkadot/releases/download/v0.9.1/polkadot'

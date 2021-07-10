@@ -4,7 +4,7 @@ function handle_error() {
   if (( $? )) ; then
     echo -e "[\e[31mERROR\e[39m]"
     echo -e >&2 "CAUSE:\n $1"
-    exit 1 
+    exit 1
   else
     echo -e "[\e[32mOK\e[39m]"
   fi
@@ -24,8 +24,8 @@ echo -n ">> Testing Ansible availability... "
 out=$((ansible --version) 2>&1)
 handle_error "$out"
 
-echo -n ">> Finding validator hosts... "
-out=$((ansible validator -i ${INVENTORY} --list-hosts) 2>/dev/null)
+echo -n ">> Finding collator hosts... "
+out=$((ansible collator -i ${INVENTORY} --list-hosts) 2>/dev/null)
 if [[ $out == *"hosts (0)"* ]]; then
   out="No hosts found, exiting..."
   (exit 1)

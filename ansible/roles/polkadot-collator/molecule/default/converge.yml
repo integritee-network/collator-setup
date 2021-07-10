@@ -2,4 +2,4 @@
 - name: Converge
   hosts: collator
   roles:
-    - role: polkadot-update-binary
+    - role: polkadot-collator
