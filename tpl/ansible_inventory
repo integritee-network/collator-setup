@@ -19,10 +19,10 @@ collator_{{@index}}
 [all:vars]
 project={{ project }}
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ConnectTimeout=25 -o ControlMaster=no -o UserKnownHostsFile=/dev/null'
-collator_binary_url='{{ polkadotBinaryUrl }}'
-collator_binary_checksum='{{ polkadotBinaryChecksum }}'
+collator_binary_url='{{ collatorBinaryUrl }}'
+collator_binary_checksum='{{ collatorBinaryChecksum }}'
 chain='{{ chain }}'
-polkadot_network_id='{{ polkadotNetworkId }}'
+polkadot_network_id='{{ parachainNetworkId }}'
 build_dir={{ buildDir }}
 nginx_user='{{ nginxUsername }}'
 nginx_password='{{ nginxPassword }}'
