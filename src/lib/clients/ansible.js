@@ -11,7 +11,6 @@ const inventoryFileName = 'inventory'
 class Ansible {
   constructor(cfg) {
     this.config = JSON.parse(JSON.stringify(cfg));
-
     this.ansiblePath = path.join(__dirname, '..', '..', '..', 'ansible');
     this.options = {
       cwd: this.ansiblePath,

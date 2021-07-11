@@ -8,7 +8,7 @@ def test_polkadot_user(host):
     assert user.gid == group.gid
 
 
-def test_polkadot_binary(host):
+def test_collator_binary(host):
     binary = host.file('/usr/local/bin/polkadot')
     assert binary.exists
     assert binary.user == 'polkadot'

@@ -1,26 +1,26 @@
-{{#each validators }}
-[validator_{{@index}}]
+{{#each collators }}
+[collator_{{@index}}]
 {{ this.ipAddress }}
 
-[validator_{{@index}}:vars]
+[collator_{{@index}}:vars]
 ansible_user={{ this.sshUser }}
-telemetryUrl={{ ../validatorTelemetryUrl }}
-loggingFilter='{{{ ../validatorLoggingFilter }}}'
+telemetryUrl={{ ../collatorTelemetryUrl }}
+loggingFilter='{{{ ../collatorLoggingFilter }}}'
 nodeName={{ this.nodeName }}
 
 {{/each}}
 
-[validator:children]
-{{#each validators }}
-validator_{{@index}}
+[collator:children]
+{{#each collators }}
+collator_{{@index}}
 {{/each}}
 
 
 [all:vars]
 project={{ project }}
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ConnectTimeout=25 -o ControlMaster=no -o UserKnownHostsFile=/dev/null'
-polkadot_binary_url='{{ polkadotBinaryUrl }}'
-polkadot_binary_checksum='{{ polkadotBinaryChecksum }}'
+collator_binary_url='{{ polkadotBinaryUrl }}'
+collator_binary_checksum='{{ polkadotBinaryChecksum }}'
 chain='{{ chain }}'
 polkadot_network_id='{{ polkadotNetworkId }}'
 build_dir={{ buildDir }}
@@ -36,7 +36,7 @@ polkadot_restart_day='{{ polkadotRestartDay }}'
 polkadot_restart_month='{{ polkadotRestartMonth }}'
 polkadot_restart_weekday='{{ polkadotRestartWeekDay }}'
 polkadot_additional_common_flags='{{{ polkadotAdditionalCommonFlags }}}'
-polkadot_additional_validator_flags='{{{ polkadotAdditionalValidatorFlags }}}'
+polkadot_additional_collator_flags='{{{ polkadotAdditionalValidatorFlags }}}'
 polkadot_additional_public_flags='{{{ polkadotAdditionalPublicFlags }}}'
 polkadot_db_snapshot_url='{{{ dbSnapshotUrl }}}'
 polkadot_db_snapshot_checksum='{{{ dbSnapshotChecksum }}}'

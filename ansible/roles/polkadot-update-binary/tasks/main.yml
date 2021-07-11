@@ -7,40 +7,42 @@
 
 - name: download polkadot binary
   get_url:
-    url: '{{ polkadot_binary_url | quote }}'
-    checksum: '{{ polkadot_binary_checksum | quote }}'
-    dest: /usr/local/bin/polkadot-new
+    url: '{{ collator_binary_url | quote }}'
+#    checksum: '{{ collator_binary_checksum | quote }}'
+    dest: /tmp/collator.zip
     force: true
     mode: '0700'
     owner: 'polkadot'
     group: 'polkadot'
-  when: polkadot_sha256.stdout != polkadot_binary_checksum
+#  when: polkadot_sha256.stdout != collator_binary_checksum
 
 
-- name: stop polkadot service
+- name: stop collator service
   systemd:
-    name: polkadot.service
+    name: collator.service
     state: stopped
     daemon_reload: yes
   tags: molecule-idempotence-notest
-  
 
 
-- name: substitute new polkadot binary
+
+- name: substitute new collator binary
   shell: |
     set -o pipefail
 
-    if [ -f /usr/local/bin/polkadot-new ]; then
-      cp /usr/local/bin/polkadot-new /usr/local/bin/polkadot
-      chown polkadot:polkadot /usr/local/bin/polkadot
-      chmod 755 /usr/local/bin/polkadot
+    if [ -f /tmp/collator.zip ]; then
+      cd /tmp
+      unzip collator.zip
+      cp integritee-collator /usr/local/bin/integritee-collator
+      chown polkadot:polkadot /usr/local/bin/integritee-collator
+      chmod 755 /usr/local/bin/integritee-collator
     fi
   args:
     executable: /bin/bash
   changed_when: False
-  when: polkadot_sha256.stdout != polkadot_binary_checksum
+#  when: collator_sha256.stdout != collator_binary_checksum
 
 
-- name: restart polkadot service
+- name: restart collator service
   import_role:
-    name: polkadot-restart-service
+    name: collator-restart-service

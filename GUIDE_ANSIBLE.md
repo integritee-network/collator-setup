@@ -103,11 +103,11 @@ Important variables which should vary from the [sample inventory](ansible/invent
 
 * `project` - The name for how each node should be prefixed for the telemetry
   name.
-* `polkadot_binary_url` - This is the URL from were Ansible will
+* `collator_binary_url` - This is the URL from were Ansible will
   download the Polkadot binary. Binary releases are available in the official
   [Parity Releases repo](https://github.com/paritytech/polkadot/releases) or the
   [W3F Releases repo](https://github.com/w3f/polkadot/releases).
-* `polkadot_binary_checksum` - The SHA256 checksum of the Polkadot binary which
+* `collator_binary_checksum` - The SHA256 checksum of the Polkadot binary which
   Ansible verifies during execution. Must be prefixed with `sha256:`.
 * `chain` - The chain to work on, such as `kusama` or `polkadot`.
 * `polkadot_network_id` - The network identifier, such as `ksmcc3` (for Kusama)
@@ -130,8 +130,8 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ConnectTimeout=15'
 build_dir=$HOME/.config/polkadot-secure-validator/build/w3f/ansible
 
 # Specify which `polkadot` binary to install. Checksum is verified during execution.
-polkadot_binary_url='https://github.com/paritytech/polkadot/releases/download/v0.8.2/polkadot'
-polkadot_binary_checksum='sha256:349b786476de9188b79817cab48fc6fc030908ac0e8e2a46a1600625b1990758'
+collator_binary_url='https://github.com/paritytech/polkadot/releases/download/v0.8.2/polkadot'
+collator_binary_checksum='sha256:349b786476de9188b79817cab48fc6fc030908ac0e8e2a46a1600625b1990758'
 
 # Specify the chain/network.
 polkadot_network_id=polkadot
@@ -210,8 +210,8 @@ To update the Polkadot version, simply adjust those two lines in the Ansible
 inventory:
 
 ```ini
-polkadot_binary_url='...'
-polkadot_binary_checksum='sha256:...'
+collator_binary_url='...'
+collator_binary_checksum='sha256:...'
 ```
 
 Then just execute `setup.sh` again.
