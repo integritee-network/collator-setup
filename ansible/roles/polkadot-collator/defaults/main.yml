@@ -1,7 +1,10 @@
 ---
 # defaults file for polkadot-collator
 proxy_port: 80
-p2p_port: 30333
+relaychain_p2p_port: 30333
+parachain_p2p_port: 30334
+relaychain_ws_port: 9944
+parachain_ws_port: 9945
 relaychain: "kusama"
 polkadot_network_id: "ksmcc3"
 subkey_binary_url: 'https://github.com/w3f/substrate/releases/download/e0f3fa/subkey'

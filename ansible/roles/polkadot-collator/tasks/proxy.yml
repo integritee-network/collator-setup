@@ -5,6 +5,12 @@
     state: present
     update_cache: yes
 
+- name: install net-tools package
+  apt:
+    name: net-tools
+    state: present
+    update_cache: yes
+
 - name: create nginx config
   copy:
     src: nginx.conf

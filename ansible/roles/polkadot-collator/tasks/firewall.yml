@@ -21,22 +21,29 @@
     - not ufw_status_result.stdout is search("9100/tcp.*ALLOW IN.*Anywhere")
 
 - name: open polkadot_metrics port
-  command: ufw allow 9616/tcp
+  command: ufw allow 19615/tcp
   when:
     - node_exporter_enabled|default(false)|bool
-    - not ufw_status_result.stdout is search("9616/tcp.*ALLOW IN.*Anywhere")
+    - not ufw_status_result.stdout is search("19615/tcp.*ALLOW IN.*Anywhere")
 
-- name: open p2p port
-  command: ufw allow {{ p2p_port }}/tcp
+- name: open p2p ports
+  command: |
+    ufw allow {{ relaychain_p2p_port }}/tcp
+    ufw allow {{ parachain_p2p_port }}/tcp
   when:
     - not enable_reverse_proxy|default(false)|bool or not enableReverseProxy|default(false)|bool
-    - not ufw_status_result.stdout is search(p2p_port ~ "/tcp.*ALLOW IN.*Anywhere")
+    - not ufw_status_result.stdout is search(relaychain_p2p_port ~ "/tcp.*ALLOW IN.*Anywhere")
+    - not ufw_status_result.stdout is search(parachain_p2p_port ~ "/tcp.*ALLOW IN.*Anywhere")
 
 - name: close p2p port
-  command: ufw deny {{ p2p_port }}/tcp
+  command: |
+    ufw deny {{ relaychain_p2p_port }}/tcp
+    ufw deny {{ parachain_p2p_port }}/tcp
   when:
     - enable_reverse_proxy|default(false)|bool or enableReverseProxy|default(false)|bool
-    - not ufw_status_result.stdout is search(p2p_port ~ "/tcp.*DENY IN.*Anywhere")
+    - not ufw_status_result.stdout is search(relaychain_p2p_port ~ "/tcp.*DENY IN.*Anywhere")
+    - not ufw_status_result.stdout is search(parachain_p2p_port ~ "/tcp.*DENY IN.*Anywhere")
+
 
 - name: open proxy port
   command: ufw allow {{ proxy_port }}/tcp

@@ -70,9 +70,12 @@ ExecStart=/usr/local/bin/collator \
   {# --- #}
   --collator \
   --chain={{ parachain }} \
-  --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \
+  --listen-addr=/ip4/127.0.0.1/tcp/{{ parachain_p2p_port }} \
   --rpc-methods=Unsafe \
-  -- --execution wasm --chain {{ relaychain }}
+  {# --- RELAY CHAIN STUFF #}
+  -- --execution wasm \
+  --listen-addr=/ip4/127.0.0.1/tcp/{{ relaychain_p2p_port }} \
+  --prometheus-port=9614
 Restart=always
 RestartSec=60
 
