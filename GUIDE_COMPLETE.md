@@ -81,6 +81,12 @@ The `sync` command is idempotent, unless there are errors it will always have
 the same results. You can execute it as much as you want, it will only make
 changes when the actual infrastructure state doesn't match the desired state.
 
+Late, you can run ansible oalone if nothing has changed for the platform
+
+```
+ansible-playbook ansible/main.yml -i ~/.config/polkadot-secure-validator/build/integritee-kusama/ansible/inventory 
+```
+
 ### Restore db
 
 ```

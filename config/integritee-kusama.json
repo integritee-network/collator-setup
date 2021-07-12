@@ -1,0 +1,51 @@
+{
+  "project": "integritee-kusama",
+  "collatorBinary": {
+    "url": "https://cloud.brenzi.ch/index.php/s/fc3onpPG8QjJEzH/download/integritee-collator",
+    "checksum": "sha256:0c2284ba88fe526787a46c33113c2b3edf7ffadc9f193094dc1fdd09bc948818"
+  },
+  "nodeExporter": {
+    "enabled": true,
+    "binary": {
+      "url": "https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz",
+      "checksum": "sha256:3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
+    }
+  },
+  "collatorRestart": {
+    "enabled": true,
+    "minute": "50",
+    "hour": "5,12,20"
+  },
+  "chain": "shell-kusama",
+  "parachainNetworkId": "integritee-kusama",
+  "state": {
+    "project": "integritee-kusama"
+  },
+  "collators": {
+    "telemetryUrl": "wss://my.private.telemetry.endpoint",
+    "additionalFlags": "",
+    "loggingFilter": "sync=info,afg=info,babe=info",
+    "nodes": [
+      {
+        "provider": "gcp",
+        "machineType": "e2-standard-2",
+        "count": 1,
+        "location": "europe-west6",
+        "zone": "europe-west6-a",
+        "projectId": "integritee-kusama",
+        "nodeName": "testnode-gcp",
+        "sshUser": "root"
+      },
+      {
+        "provider": "digitalocean",
+        "machineType": "s-4vcpu-8gb-amd",
+        "count": 1,
+        "image": "ubuntu-18-04-x64",
+        "location": "fra1",
+        "projectId": "integritee-kusama",
+        "nodeName": "testnode-do",
+        "sshUser": "root"
+      }
+    ]
+  }
+}
