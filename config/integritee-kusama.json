@@ -16,7 +16,8 @@
     "minute": "50",
     "hour": "5,12,20"
   },
-  "chain": "shell-kusama",
+  "parachain": "shell-kusama",
+  "relaychain": "kusama",
   "parachainNetworkId": "integritee-kusama",
   "state": {
     "project": "integritee-kusama"
@@ -30,6 +31,7 @@
         "provider": "gcp",
         "machineType": "e2-standard-2",
         "count": 1,
+        "image": "2004",
         "location": "europe-west6",
         "zone": "europe-west6-a",
         "projectId": "integritee-kusama",
@@ -40,7 +42,7 @@
         "provider": "digitalocean",
         "machineType": "s-4vcpu-8gb-amd",
         "count": 1,
-        "image": "ubuntu-18-04-x64",
+        "image": "ubuntu-20-04-x64",
         "location": "fra1",
         "projectId": "integritee-kusama",
         "nodeName": "testnode-do",

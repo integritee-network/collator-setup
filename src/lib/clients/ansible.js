@@ -41,17 +41,17 @@ class Ansible {
     const collators = this._genTplNodes(this.config.collators);
     const collatorTelemetryUrl = this.config.collators.telemetryUrl;
     const collatorLoggingFilter = this.config.collators.loggingFilter;
-    const polkadotAdditionalValidatorFlags = this.config.collators.additionalFlags;
+    const parachainAdditionalCollatorFlags = this.config.collators.additionalFlags;
 
     let publicNodes = [];
     let publicTelemetryUrl = '';
     let publicLoggingFilter='';
-    let polkadotAdditionalPublicFlags = '';
+    let parachainAdditionalPublicFlags = '';
     if (this.config.publicNodes) {
       publicNodes = this._genTplNodes(this.config.publicNodes, collators.length);
       publicTelemetryUrl = this.config.publicNodes.telemetryUrl;
       publicLoggingFilter = this.config.publicNodes.loggingFilter;
-      polkadotAdditionalPublicFlags = this.config.publicNodes.additionalFlags;
+      parachainAdditionalPublicFlags = this.config.publicNodes.additionalFlags;
     }
 
     const data = {
@@ -59,8 +59,9 @@ class Ansible {
 
       collatorBinaryUrl: this.config.collatorBinary.url,
       collatorBinaryChecksum: this.config.collatorBinary.checksum,
-      chain: this.config.chain || 'kusama',
-      polkadotNetworkId: this.config.polkadotNetworkId || 'ksmcc2',
+      parachain: this.config.parachain || 'statemine',
+      relaychain: this.config.relaychain || 'kusama',
+      parachainNetworkId: this.config.parachainNetworkId || 'statemine',
 
       collators,
       publicNodes,
@@ -73,9 +74,9 @@ class Ansible {
 
       buildDir,
 
-      polkadotAdditionalCommonFlags: this.config.additionalFlags,
-      polkadotAdditionalValidatorFlags,
-      polkadotAdditionalPublicFlags,
+      parachainAdditionalCommonFlags: this.config.additionalFlags,
+      parachainAdditionalCollatorFlags,
+      parachainAdditionalPublicFlags,
 
       nginxUsername: nginxUsername,
       nginxPassword: nginxPassword

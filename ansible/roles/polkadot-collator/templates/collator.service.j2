@@ -24,7 +24,9 @@
 {% set additionalCollatorFlags = hostvars[inventory_hostname].polkadot_additional_collator_flags|default(None) %}
 {# --- #}
 [Unit]
-Description=Polkadot Node
+Description=Parachain Collator Node
+After=network.target
+StartLimitIntervalSec=0
 
 [Service]
 User=polkadot
@@ -37,11 +39,6 @@ ExecStart=/usr/local/bin/collator \
   --name {{ node_name }} \
   {% else %}
   --name {{ project|default('project') }}-sv-collator-{{ groups['collator'].index(inventory_hostname) }} \
-  {% endif %}
-  {% if wasm_execution is not none and wasm_execution|length %}
-  --wasm-execution {{ wasm_execution }} \
-  {% else %}
-  --wasm-execution Compiled \
   {% endif %}
   {% if telemetry_url is not none and telemetry_url|length %}
     {% set urls = telemetry_url.split(',') %}
@@ -72,10 +69,10 @@ ExecStart=/usr/local/bin/collator \
   {% endif %}
   {# --- #}
   --collator \
-  --chain={{ chain }} \
+  --chain={{ parachain }} \
   --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \
-  --rpc-methods=Unsafe
-
+  --rpc-methods=Unsafe \
+  -- --execution wasm --chain {{ relaychain }}
 Restart=always
 RestartSec=60
 
