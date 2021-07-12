@@ -29,7 +29,7 @@ Description=Polkadot Node
 [Service]
 User=polkadot
 Group=polkadot
-ExecStart=/usr/local/bin/polkadot \
+ExecStart=/usr/local/bin/collator \
   {% if execution is not none and execution|length %}
   --execution {{ execution }} \
   {% endif %}
@@ -71,7 +71,7 @@ ExecStart=/usr/local/bin/polkadot \
   {{ additionalCollatorFlags }} \
   {% endif %}
   {# --- #}
-  --validator \
+  --collator \
   --chain={{ chain }} \
   --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \
   --rpc-methods=Unsafe

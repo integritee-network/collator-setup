@@ -7,7 +7,7 @@
     day: "{{ polkadot_restart_day }}"
     month: "{{ polkadot_restart_month }}"
     weekday: "{{ polkadot_restart_weekday }}"
-    job: "/bin/systemctl restart polkadot.service"
+    job: "/bin/systemctl restart collator.service"
   when: "polkadot_restart_enabled|default(false)|bool"
 
 - name: register public ip
@@ -18,7 +18,7 @@
 - name: create polkadot service file
   template:
     src: collator.service.j2
-    dest: /etc/systemd/system/polkadot.service
+    dest: /etc/systemd/system/collator.service
     owner: root
     group: root
     mode: 0600

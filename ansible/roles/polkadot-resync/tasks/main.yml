@@ -1,6 +1,6 @@
 - name: stop polkadot service
   systemd:
-    name: polkadot.service
+    name: collator.service
     state: stopped
 
 - name: purge chain
@@ -15,5 +15,5 @@
 
 - name: start polkadot service
   systemd:
-    name: polkadot.service
+    name: collator.service
     state: started

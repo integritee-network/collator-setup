@@ -1,20 +1,20 @@
-- name: get currently polkadot sha256
+- name: get currently collator sha256
   shell: |
-    sha256sum /usr/local/bin/polkadot | sed -n 's/^\(\S*\).*/sha256:\1/p'
+    sha256sum /usr/local/bin/collator | sed -n 's/^\(\S*\).*/sha256:\1/p'
   args:
     executable: /bin/bash
-  register: polkadot_sha256
+  register: collator_sha256
 
-- name: download polkadot binary
+- name: download collator binary
   get_url:
     url: '{{ collator_binary_url | quote }}'
-#    checksum: '{{ collator_binary_checksum | quote }}'
-    dest: /tmp/collator.zip
+    checksum: '{{ collator_binary_checksum | quote }}'
+    dest: /usr/local/bin/collator-new
     force: true
     mode: '0700'
     owner: 'polkadot'
     group: 'polkadot'
-#  when: polkadot_sha256.stdout != collator_binary_checksum
+  when: collator_sha256.stdout != collator_binary_checksum
 
 
 - name: stop collator service
@@ -30,17 +30,15 @@
   shell: |
     set -o pipefail
 
-    if [ -f /tmp/collator.zip ]; then
-      cd /tmp
-      unzip collator.zip
-      cp integritee-collator /usr/local/bin/integritee-collator
-      chown polkadot:polkadot /usr/local/bin/integritee-collator
-      chmod 755 /usr/local/bin/integritee-collator
+    if [ -f /usr/local/bin/collator-new ]; then
+      cp /usr/local/bin/collator-new /usr/local/bin/collator
+      chown polkadot:polkadot /usr/local/bin/collator
+      chmod 755 /usr/local/bin/collator
     fi
   args:
     executable: /bin/bash
   changed_when: False
-#  when: collator_sha256.stdout != collator_binary_checksum
+  when: collator_sha256.stdout != collator_binary_checksum
 
 
 - name: restart collator service

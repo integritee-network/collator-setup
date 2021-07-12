@@ -1,13 +1,13 @@
-- name: restart polkadot service
+- name: restart collator service
   systemd:
-    name: polkadot.service
+    name: collator.service
     state: restarted
     daemon_reload: yes
     enabled: yes
   changed_when: false
 
-#curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' http://localhost:9933  
-- name: wait for polkadot service started
+#curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' http://localhost:9933
+- name: wait for collator service started
   uri:
     url: http://localhost:9933
     status_code: 200
@@ -15,8 +15,8 @@
     body_format: json
     body: |
       { "jsonrpc":"2.0", "method":"system_health", "params":[], "id":1 }
-  register: result    
+  register: result
   until: result.status == 200
   retries: 12
-  delay: 5 
+  delay: 5
   tags: molecule-notest
