@@ -27,7 +27,7 @@
     - not ufw_status_result.stdout is search("19615/tcp.*ALLOW IN.*Anywhere")
 
 - name: open p2p ports
-  command: |
+  shell: |
     ufw allow {{ relaychain_p2p_port }}/tcp
     ufw allow {{ parachain_p2p_port }}/tcp
   when:
@@ -36,7 +36,7 @@
     - not ufw_status_result.stdout is search(parachain_p2p_port ~ "/tcp.*ALLOW IN.*Anywhere")
 
 - name: close p2p port
-  command: |
+  shell: |
     ufw deny {{ relaychain_p2p_port }}/tcp
     ufw deny {{ parachain_p2p_port }}/tcp
   when:
