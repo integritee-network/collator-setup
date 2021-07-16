@@ -54,6 +54,8 @@ class Ansible {
       parachainAdditionalPublicFlags = this.config.publicNodes.additionalFlags;
     }
 
+    console.log(`[Ansible] Added public nodes: ${JSON.stringify(publicNodes)}`)
+
     const data = {
       project: this.config.project,
 

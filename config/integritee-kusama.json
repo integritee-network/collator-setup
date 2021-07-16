@@ -49,5 +49,23 @@
         "sshUser": "root"
       }
     ]
+  },
+  "publicNodes": {
+    "telemetryUrl": "wss://my.private.telemetry.endpoint",
+    "additionalFlags": "",
+    "loggingFilter": "sync=info,afg=info,babe=info",
+    "nodes": [
+      {
+        "provider": "gcp",
+        "machineType": "e2-standard-2",
+        "count": 2,
+        "image": "2004",
+        "location": "europe-west6",
+        "zone": "europe-west6-a",
+        "projectId": "integritee-kusama",
+        "nodeName": "testnode-gcp",
+        "sshUser": "root"
+      }
+    ]
   }
 }
