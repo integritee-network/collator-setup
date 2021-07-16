@@ -13,3 +13,4 @@ credentials.json
 config/*
 !config/*template*
 !config/*sample*
+log/*
