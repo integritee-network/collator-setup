@@ -9,6 +9,7 @@
     "test": "mocha --reporter spec --recursive",
     "sync": "node . sync",
     "clean": "node . clean",
+    "unlock": "node . unlock",
     "plan": "node . plan",
     "restore-db": "node . restore-db",
     "rotate-keys": "node . rotate-keys",

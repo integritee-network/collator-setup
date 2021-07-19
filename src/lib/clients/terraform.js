@@ -77,6 +77,28 @@ class Terraform {
     return Promise.all(cleanPromises);
   }
 
+  async unlock() {
+    this._initializeTerraform();
+    let collatorCleanPromises = [];
+    try {
+      collatorCleanPromises = await this._unlock('collator',this.config.collators.nodes);
+    } catch(e) {
+      console.log(`Could not get collator clean promises: ${e.message}`);
+    }
+
+    let publicNodesCleanPromises = [];
+    if(this.config.publicNodes){
+      try {
+        publicNodesCleanPromises = await this._unlock('publicNode', this.config.publicNodes.nodes);
+      } catch(e) {
+        console.log(`Could not get publicNodes clean promises: ${e.message}`);
+      }
+    }
+    const cleanPromises = collatorCleanPromises.concat(publicNodesCleanPromises);
+
+    return Promise.all(cleanPromises);
+  }
+
   nodeOutput(type, counter, outputField) {
     const cwd = this._terraformNodeDirPath(type, counter);
     const options = { cwd };
@@ -119,6 +141,23 @@ class Terraform {
         const options = { cwd };
         await this._initCmd(backendConfig,options);
         await this._cmd('destroy -lock=false -auto-approve', options);
+
+        resolve(true);
+      }));
+    }
+    return destroyPromises;
+  }
+
+  async _unlock(type, nodes) {
+    const destroyPromises = [];
+
+    for (let counter = 0; counter < nodes.length; counter++) {
+      const cwd = this._terraformNodeDirPath(type, counter)
+      const backendConfig = this._backendConfig(type, counter);
+      destroyPromises.push(new Promise(async (resolve) => {
+        const options = { cwd };
+        await this._initCmd(backendConfig,options);
+        await this._cmd(`force-unlock --force ${nodes[counter].lockId}`, options);
 
         resolve(true);
       }));

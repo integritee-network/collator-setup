@@ -31,6 +31,10 @@ class Platform {
     return this.tf.clean();
   }
 
+  async unlock() {
+    return this.tf.unlock();
+  }
+
   async _extractOutput(type, nodeSet) {
     const output = [];
     await asyncUtils.forEach(nodeSet, async (node, index) => {

@@ -11,6 +11,7 @@ const sync = require('./lib/actions/sync');
 const plan = require('./lib/actions/plan');
 const version = require('./lib/version');
 const updateBinary = require('./lib/actions/updateBinary');
+const unlock = require('./lib/actions/unlock');
 const restoreDB = require('./lib/actions/restoreDB');
 const rotateKeys = require('./lib/actions/rotateKeys');
 
@@ -31,6 +32,12 @@ program
   .action(clean.do);
 
 program
+  .command('unlock')
+  .description('Releases the tf lock. Only needed when a tf process unexpectedly exits.')
+  .option('-c, --config [path]', 'Path to config file.', './config/main.json')
+  .action(unlock.do);
+
+program
   .command('plan')
   .description('Shows changes in the infrastructure layer that would be performed by sync.')
   .option('-c, --config [path]', 'Path to config file.', './config/main.json')
@@ -46,13 +53,13 @@ program
   .command('restore-db')
   .description('Restore the nodes DB.')
   .option('-c, --config [path]', 'Path to config file.', './config/main.json')
-  .action(restoreDB.do); 
-  
+  .action(restoreDB.do);
+
 program
   .command('rotate-keys')
   .description('Rotate the nodes keys.')
   .option('-c, --config [path]', 'Path to config file.', './config/main.json')
-  .action(rotateKeys.do);   
+  .action(rotateKeys.do);
 
 program.allowUnknownOption(false);
 
