@@ -1,6 +1,7 @@
 ---
 # defaults file for polkadot-collator
 proxy_port: 80
+proxy_wss_port: 443
 relaychain_p2p_port: 30333
 parachain_p2p_port: 30334
 relaychain_ws_port: 9944

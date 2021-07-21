@@ -19,6 +19,7 @@ ansible_user={{ this.sshUser }}
 telemetryUrl={{ ../collatorTelemetryUrl }}
 loggingFilter='{{{ ../collatorLoggingFilter }}}'
 nodeName={{ this.nodeName }}
+isPublicNode=true
 
 {{/each}}
 

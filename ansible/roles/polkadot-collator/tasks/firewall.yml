@@ -51,6 +51,11 @@
     - enable_reverse_proxy|default(false)|bool or enableReverseProxy|default(false)|bool
     - not ufw_status_result.stdout is search(proxy_port ~ "/tcp.*ALLOW IN.*Anywhere")
 
+- name: open rpc proxy port (publicNode)
+  command: ufw allow {{ proxy_wss_port }}/tcp
+  when:
+    - is_public_node|default(false)|bool or isPublicNode|default(false)|bool
+
 - name: enable firewall
   shell: |
     set -o pipefail
