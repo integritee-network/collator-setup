@@ -108,6 +108,10 @@ class Ansible {
       data.dbSnapshotChecksum = this.config.collators.dbSnapshot.checksum;
     }
 
+    console.log(`[Ansible] Origin Config: ${JSON.stringify(origin, null, 2)}`)
+    console.log(`[Ansible] Origin Config: ${JSON.stringify(target, null, 2)}`)
+    console.log(`[Ansible] Origin Config: ${JSON.stringify(data, null, 2)}`)
+
     tpl.create(origin, target, data);
 
     return target;
