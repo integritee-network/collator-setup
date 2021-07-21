@@ -24,7 +24,7 @@
   },
   "collators": {
     "telemetryUrl": "wss://my.private.telemetry.endpoint",
-    "additionalFlags": "",
+    "additionalFlags": "--collator",
     "loggingFilter": "sync=info,afg=info,babe=info",
     "nodes": [
       {
