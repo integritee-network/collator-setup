@@ -7,20 +7,20 @@
     wait_for_connection:
 
 - name: collator
-  hosts: collator
+  hosts: collator,publicNode
   become: yes
   roles:
   - polkadot-collator
 
 - name: nginx-auth
-  hosts: collator
+  hosts: collator,publicNode
   become: yes
   strategy: free
   roles:
   - nginx-auth
 
 - name: node-exporter
-  hosts: collator
+  hosts: collator,publicNode
   become: yes
   strategy: free
   roles:

@@ -10,11 +10,28 @@ nodeName={{ this.nodeName }}
 
 {{/each}}
 
+{{#each publicNodes }}
+[publicNode_{{@index}}]
+{{ this.ipAddress }}
+
+[publicNode_{{@index}}:vars]
+ansible_user={{ this.sshUser }}
+telemetryUrl={{ ../collatorTelemetryUrl }}
+loggingFilter='{{{ ../collatorLoggingFilter }}}'
+nodeName={{ this.nodeName }}
+
+{{/each}}
+
+
 [collator:children]
 {{#each collators }}
 collator_{{@index}}
 {{/each}}
 
+[publicNode:children]
+{{#each publicNodes }}
+publicNode_{{@index}}
+{{/each}}
 
 [all:vars]
 project={{ project }}
