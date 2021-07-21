@@ -20,8 +20,8 @@
 {% if logging_filter is none %}
   {% set logging_filter = hostvars[inventory_hostname].loggingFilter|default(None) %}
 {% endif %}
-{% set additionalCommonFlags = hostvars[inventory_hostname].polkadot_additional_common_flags|default(None) %}
-{% set additionalCollatorFlags = hostvars[inventory_hostname].polkadot_additional_collator_flags|default(None) %}
+{% set additionalCommonFlags = hostvars[inventory_hostname].parachain_additional_common_flags|default(None) %}
+{% set additionalCollatorFlags = hostvars[inventory_hostname].parachain_additional_collator_flags|default(None) %}
 {# --- #}
 [Unit]
 Description=Parachain Collator Node
@@ -68,7 +68,6 @@ ExecStart=/usr/local/bin/collator \
   {{ additionalCollatorFlags }} \
   {% endif %}
   {# --- #}
-  --collator \
   --chain={{ parachain }} \
   --listen-addr=/ip4/127.0.0.1/tcp/{{ parachain_p2p_port }} \
   --rpc-methods=Unsafe \
