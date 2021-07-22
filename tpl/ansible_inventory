@@ -20,7 +20,7 @@ ansible_user={{ this.sshUser }}
 telemetryUrl={{ ../collatorTelemetryUrl }}
 loggingFilter='{{{ ../collatorLoggingFilter }}}'
 nodeName={{ this.nodeName }}
-enable_reverse_proxy=True
+is_collator=True
 is_public=True
 
 {{/each}}
