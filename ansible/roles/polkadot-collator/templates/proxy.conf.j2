@@ -1,6 +1,4 @@
-{% if is_public_node is none %}
-  {% set is_public_node = hostvars[inventory_hostname].isPublicNode|default(false) %}
-{% endif %}
+{% set is_public= hostvars[inventory_hostname].is_public|default(false) %}
 
 server {
   listen 0.0.0.0:{{ proxy_port }};
@@ -8,7 +6,7 @@ server {
   proxy_pass localhost:{{ parachain_p2p_port }};
 }
 
-{% if is_public_node %}
+{% if is_public is sameas true %}
 server {
   listen 0.0.0.0:{{ proxy_wss_port }};
   proxy_pass localhost:{{ parachain_ws_port }};
