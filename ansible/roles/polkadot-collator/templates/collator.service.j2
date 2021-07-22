@@ -7,6 +7,9 @@
 {% set logging_filter = hostvars[inventory_hostname].logging_filter|default(None) %}
 {% set base_path = hostvars[inventory_hostname].base_path|default(None) %}
 {% set additional_flags = hostvars[inventory_hostname].additional_flags|default(None) %}
+{% set is_collator = hostvars[inventory_hostname].is_collator|default(false) %}
+{% set is_public= hostvars[inventory_hostname].is_public|default(false) %}
+
 {# ## Legacy/deprecated flags #}
 {% if node_name is none %}
   {% set node_name = hostvars[inventory_hostname].nodeName|default(None) %}
@@ -65,10 +68,10 @@ ExecStart=/usr/local/bin/collator \
   {% if additionalCommonFlags is not none and additionalCommonFlags|length %}
   {{ additionalCommonFlags }} \
   {% endif %}
-  {% if additionalCollatorFlags is not none and additionalCollatorFlags|length %}
+  {% if is_collator is sameas true and additionalCollatorFlags is not none and additionalCollatorFlags|length %}
   {{ additionalCollatorFlags }} \
   {% endif %}
-  {% if additionalPublicFlags is not none and additionalPublicFlags|length %}
+  {% if is_public is sameas true and additionalPublicFlags is not none and additionalPublicFlags|length %}
   {{ additionalPublicFlags }} \
   {% endif %}
   {# --- #}
