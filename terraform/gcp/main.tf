@@ -4,7 +4,7 @@ resource "google_compute_firewall" "ssh-p2p-wss-{{ name }}" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "30333", "80", "443"]
+    ports    = ["22", "30333", "30334","80", "443"]
   }
 
   source_ranges = ["0.0.0.0/0"]
