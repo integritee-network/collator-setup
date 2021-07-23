@@ -26,6 +26,14 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
 
+#- name: letsencrypt setup and ssl reverse proxy
+#  template:
+#    src: proxy.public.node.conf.j2
+#    dest: /etc/nginx/streams-enabled/public-node.conf
+#    mode: 0600
+#  when:
+#    - is_public|default(false)|bool
+
 - name: create proxy service file
   template:
     src: proxy.conf.j2

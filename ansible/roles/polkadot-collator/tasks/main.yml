@@ -12,6 +12,11 @@
 - name: proxy setup
   import_tasks: proxy.yml
 
+- name: letsencrypt and ssl reverse proxy setup
+  import_tasks: letsencrypt.yml
+  when:
+    - is_public|default(false)|bool
+
 - name: service setup
   import_tasks: service.yml
 
