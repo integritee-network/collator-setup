@@ -9,6 +9,7 @@
 {% set additional_flags = hostvars[inventory_hostname].additional_flags|default(None) %}
 {% set is_collator = hostvars[inventory_hostname].is_collator|default(false) %}
 {% set is_public= hostvars[inventory_hostname].is_public|default(false) %}
+{% set ip_address = hostvars[inventory_hostname].ip_address |default(None) %}
 
 {% set additional_common_flags = hostvars[inventory_hostname].parachain_additional_common_flags|default(None) %}
 {% set additional_collator_flags = hostvars[inventory_hostname].parachain_additional_collator_flags|default(None) %}
@@ -72,6 +73,9 @@ ExecStart=/usr/local/bin/collator \
   {% endif %}
   {% if is_collator is sameas true and additional_collator_flags is not none and additional_collator_flags|length %}
   {{ additional_collator_flags }} \
+  {% endif %}
+  {% if is_public is sameas true %}
+  --rpc-cors all \
   {% endif %}
   {% if is_public is sameas true and additional_public_flags is not none and additional_public_flags|length %}
   {{ additional_public_flags }} \
