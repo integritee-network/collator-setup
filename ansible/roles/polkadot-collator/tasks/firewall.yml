@@ -54,7 +54,23 @@
 - name: open rpc proxy port (publicNode)
   command: ufw allow {{ proxy_wss_port }}/tcp
   when:
-    - is_public_node|default(false)|bool or isPublicNode|default(false)|bool
+    - is_public|default(false)|bool
+
+- name: close rpc proxy port (publicNode)
+  command: ufw deny {{ proxy_wss_port }}/tcp
+  when:
+    - not is_public|default(false)|bool
+
+# port 80 is needed for certbot
+- name: open port 80 (publicNode)
+  command: ufw allow 80/tcp
+  when:
+    - is_public|default(false)|bool
+
+- name: close port 80 (publicNode)
+  command: ufw deny 80/tcp
+  when:
+    - not is_public|default(false)|bool
 
 - name: enable firewall
   shell: |
