@@ -12,8 +12,14 @@
 - name: proxy setup
   import_tasks: proxy.yml
 
-- name: letsencrypt and ssl reverse proxy setup
-  import_tasks: letsencrypt.yml
+# Todo: certbot does not work, use self-signed for now
+#- name: letsencrypt and ssl reverse proxy setup
+#  import_tasks: letsencrypt.yml
+#  when:
+#    - is_public|default(false)|bool
+
+- name: self-signed ssl reverse proxy setup
+  import_tasks: self_signed_proxy.yml
   when:
     - is_public|default(false)|bool
 
