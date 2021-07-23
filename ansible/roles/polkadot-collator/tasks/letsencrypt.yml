@@ -48,7 +48,7 @@
 - name: Install nginx site for node
   template:
     src: proxy.public.node.conf.j2
-    dest: /etc/nginx/sites-enabled/node
+    dest: /etc/nginx/sites-enabled//etc/nginx/sites-enabled/integritee-node.conf
 
 - name: Reload nginx to activate specified site
   service:
