@@ -1,5 +1,5 @@
-resource "google_compute_firewall" "ssh-p2p-{{ name }}" {
-  name    = "ssh-p2p-proxy-{{ name }}"
+resource "google_compute_firewall" "ssh-p2p-wss-{{ name }}" {
+  name    = "ssh-p2p-wss-proxy-{{ name }}"
   network = "default"
 
   allow {
@@ -60,7 +60,7 @@ resource "google_compute_instance" "main-{{ name }}" {
     }
   }
 
-  depends_on = [google_compute_firewall.ssh-p2p-{{ name }}, google_compute_firewall.vpn-{{ name }}]
+  depends_on = [google_compute_firewall.ssh-p2p-wss-{{ name }}, google_compute_firewall.vpn-{{ name }}]
 
   service_account {
     scopes = ["compute-ro"]
