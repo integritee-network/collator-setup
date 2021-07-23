@@ -1,7 +1,6 @@
 server {
   listen {{ proxy_wss_port }} ssl;
-#  fixme: ipv6 gives invalid host currently
-# listen [::}:{{ proxy_wss_port }} ssl ipv6only=on;
+  listen [::]:{{ proxy_wss_port }} ssl ipv6only=on;
 
   server_name {{ ip_address }};
 
@@ -13,8 +12,7 @@ server {
     #as directory, then fall back to displaying a 404.
     try_files $uri $uri/ =404;
 
-    # Todo: change to parachain port.
-    proxy_pass http://localhost:{{ relaychain_ws_port }};
+    proxy_pass http://localhost:{{ parachain_ws_port }};
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
