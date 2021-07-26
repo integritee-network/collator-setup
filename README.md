@@ -30,6 +30,14 @@ There are two ways of using this repository:
 
   See the [Ansible Guide](GUIDE_ANSIBLE.md) for more.
 
+### Pitfalls
+  * There is the OS firewall, but the is also the resource's firewall (at least for GCP). If access from the outside
+    is needed, both firewalls need to configured.
+  * In ansible the templates are sometimes not overwritten on the remote if the file already exists. Then you need to
+    manually remove the file before syncing. This is not as documented by Ansible...
+  * The node on the same resource cannot change from collator to non-collator without purging the db.
+    
+
 ## Structure
 
 The secure setup is composed of one or more node that run with a local
