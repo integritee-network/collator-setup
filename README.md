@@ -36,7 +36,6 @@ There are two ways of using this repository:
   * In ansible, the templates are sometimes not overwritten on the remote if the file already exists. Then you need to
     manually remove the file before syncing. This is not as documented by Ansible...
   * The node on the same resource cannot change from collator to non-collator without purging the node's db.
-    
 
 ## Structure
 
@@ -51,7 +50,6 @@ proxy.
 * Public Nodes (are not run as collators):
   * also do the above.
   * set up an ssl reverse proxy with nginx for the websocket-rpc interface.
-
 
 The setup also configures a firewall in which the default p2p port is closed for
 incoming connections and only the proxy port is open.
