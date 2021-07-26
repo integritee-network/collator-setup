@@ -39,6 +39,9 @@ StartLimitIntervalSec=0
 User=polkadot
 Group=polkadot
 ExecStart=/usr/local/bin/collator \
+  {% if is_collator is sameas true %}
+  --collator {{ execution }} \
+  {% endif %}
   {% if execution is not none and execution|length %}
   --execution {{ execution }} \
   {% endif %}
