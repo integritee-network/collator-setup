@@ -74,6 +74,7 @@ ExecStart=/usr/local/bin/collator \
   {% if is_collator is sameas true and additional_collator_flags is not none and additional_collator_flags|length %}
   {{ additional_collator_flags }} \
   {% endif %}
+  --ws-port {{ parachain_ws_port }} \
   {% if is_public is sameas true %}
   --rpc-cors all \
   {% endif %}
@@ -87,6 +88,7 @@ ExecStart=/usr/local/bin/collator \
   {# --- RELAY CHAIN STUFF #}
   -- --execution wasm \
   --listen-addr=/ip4/127.0.0.1/tcp/{{ relaychain_p2p_port }} \
+  --ws-port {{ relaychain_ws_port }} \
   --prometheus-port=9614
 Restart=always
 RestartSec=60
