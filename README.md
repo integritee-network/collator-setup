@@ -1,8 +1,8 @@
 [![CircleCI](https://circleci.com/gh/w3f/polkadot-secure-validator.svg?style=svg)](https://circleci.com/gh/w3f/polkadot-secure-validator)
 
-# Polkadot Validator Setup
+# Polkadot Collator Setup
 
-This repo describes a potential setup for a Polkadot or Kusama validator that aims to
+This repo describes a potential setup for a Polkadot or Kusama integritee-parachain setup that aims to
 prevent some types of potential attacks at the TCP layer and below.
 The [Workflow](#workflow) section describes the [Platform Layer](#platform-layer)
 and the [Application Layer](#application-layer) in more detail.
@@ -50,12 +50,12 @@ incoming connections and only the proxy port is open.
 
 ## Workflow
 
-The secure validator setup is structured in two layers, an underlying platform
+The secure collator setup is structured in two layers, an underlying platform
 and the applications that run on top of it.
 
 ### Platform Layer
 
-Validators are created using the terraform modules located at [terraform](/terraform)
+Collators are created using the terraform modules located at [terraform](/terraform)
 directory. We have created code for several providers but it is possible to add new
 ones, please reach out if you are interested in any provider currently not available.
 
@@ -64,10 +64,10 @@ infrastructure for adding firewall rules to protect the nodes.
 
 ### Application Layer
 
-This is done through the ansible playbook and polkadot-validator role located at
+This is done through the ansible playbook and polkadot-collator role located at
 [ansible](/ansible), basically the role performs these actions:
 
-* Software firewall setup, for the validator we only allow the proxy, SSH and, if
+* Software firewall setup, for the collator we only allow the proxy, SSH and, if
 enabled, node-exporter ports.
 * Configure journald to tune log storage.
 * Create polkadot user and group.
@@ -78,12 +78,12 @@ enabled, node-exporter ports.
 
 # Note about upgrades from the sentries setup
 
-The current version of polkadot-secure-validator doesn't allow to create and configure
+The current version of polkadot-secure-collator doesn't allow to create and configure
 sentry nodes. Although the terraform files and ansible roles of this latest version
-can be applied on setups created with previous versions, the validators would be configured
+can be applied on setups created with previous versions, the collators would be configured
 to work without sentries and to connect to the network using the local reverse proxy instead.
 
 If you created the sentries with a previous version of this tool through terraform following
 the complete workflow, then they will not be deleted automatically when running this new version.
-In short, the old sentries will no longer be used by the validators and it will be up to you to
+In short, the old sentries will no longer be used by the collators and it will be up to you to
 remove them manually.
