@@ -20,6 +20,9 @@ server {
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
+
+    access_log /var/log/nginx/{{ main_domain_name }}.access.log;
+    error_log /var/log/nginx/{{ main_domain_name }}.error.log debug;
   }
 
 # Todo: enable when we have figured out how to handle domain
