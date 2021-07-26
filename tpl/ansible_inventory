@@ -21,7 +21,6 @@ telemetryUrl={{ ../collatorTelemetryUrl }}
 loggingFilter='{{{ ../collatorLoggingFilter }}}'
 nodeName={{ this.nodeName }}
 ip_address={{ this.ipAddress }}
-is_collator=True
 is_public=True
 
 {{/each}}
