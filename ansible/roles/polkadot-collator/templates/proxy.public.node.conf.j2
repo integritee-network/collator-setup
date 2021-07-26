@@ -1,4 +1,6 @@
 server {
+  # The server is configured according to the guide in: https://wiki.polkadot.network/docs/maintain-wss
+
   listen {{ proxy_wss_port }} ssl;
   listen [::]:{{ proxy_wss_port }} ssl ipv6only=on;
 
