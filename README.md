@@ -32,12 +32,18 @@ There are two ways of using this repository:
 
 ## Structure
 
-The secure validator setup is composed of one or more validators that run with a local
-instance of NGINX as a reverse TCP proxy in front of them. The validators are instructed to:
-* advertise themselves with the public IP of the node and the port where the
+The secure setup is composed of one or more node that run with a local
+instance of NGINX as a reverse TCP proxy in front of them. The nodes are either run as:
+
+* Collators:
+  * advertise themselves with the public p2p IP of the node and the port where the
 reverse proxy is listening.
-* bind to the localhost interface, so that they only allow incoming connections from the
+  * bind to the localhost interface, so that they only allow incoming connections from the
 proxy.
+* Public Nodes (are not run as collators):
+  * also do the above.
+  * set up an ssl reverse proxy with nginx for the websocket-rpc interface.
+
 
 The setup also configures a firewall in which the default p2p port is closed for
 incoming connections and only the proxy port is open.
