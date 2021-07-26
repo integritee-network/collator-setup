@@ -4,7 +4,7 @@
     name: /etc/nginx/sites-enabled/default
     state: absent
 
-- name: Create self-signed certificate, if configured.
+- name: Create self-signed certificate
   command: >
     openssl req -x509 -nodes -subj '/O=Integritee Node' -days 365
     -newkey rsa:4096 -sha256 -keyout {{ item.key }} -out {{ item.cert }}

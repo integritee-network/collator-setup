@@ -54,8 +54,6 @@ class Ansible {
       parachainAdditionalPublicFlags = this.config.publicNodes.additionalFlags;
     }
 
-    console.log(`[Ansible] Added public nodes: ${JSON.stringify(publicNodes)}`)
-
     const data = {
       project: this.config.project,
 
@@ -108,9 +106,9 @@ class Ansible {
       data.dbSnapshotChecksum = this.config.collators.dbSnapshot.checksum;
     }
 
-    console.log(`[Ansible] Origin Config: ${JSON.stringify(origin, null, 2)}`)
-    console.log(`[Ansible] Origin Config: ${JSON.stringify(target, null, 2)}`)
-    console.log(`[Ansible] Origin Config: ${JSON.stringify(data, null, 2)}`)
+    console.log(`[Ansible] Origin: ${JSON.stringify(origin, null, 2)}`)
+    console.log(`[Ansible] Target: ${JSON.stringify(target, null, 2)}`)
+    console.log(`[Ansible] Data: ${JSON.stringify(data, null, 2)}`)
 
     tpl.create(origin, target, data);
 
